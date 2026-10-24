@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>You're invited 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Fredoka:wght@600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f6f1ee;
+      --ink: #141414;
+      --pink: #f4a6b8;
+      --rose: #e0607e;
+      --gold: #f2c14e
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: #ebe3df;
+      font-family: 'Gaegu', 'Comic Sans MS', cursive;
+      color: var(--ink);
+      padding-bottom: 60px;
+      background-image: radial-gradient(#d9cdc7 1.2px, transparent 1.2px);
+      background-size: 22px 22px;
+      overflow-x: hidden
+    }
+
+    body.locked {
+      height: 100vh;
+      overflow: hidden
+    }
+
+    .hand {
+      font-family: 'Nanum Pen Script', 'Gaegu', cursive
+    }
+
+    /* cover */
+    #cover {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: var(--paper);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .9s cubic-bezier(.7, 0, .2, 1)
+    }
+
+    #cover.gone {
+      transform: translateY(-105%)
+    }
+
+    #cover .env {
+      font-size: 96px;
+      animation: bob 2s ease-in-out infinite;
+      display: block
+    }
+
+    #cover h1 {
+      font-family: 'Nanum Pen Script';
+      font-size: 52px;
+      font-weight: 400;
+      margin-top: 6px
+    }
+
+    #cover p {
+      font-size: 22px;
+      opacity: .7;
+      margin-top: 6px
+    }
+
+    @keyframes bob {
+      50% {
+        transform: translateY(-12px) rotate(-5deg)
+      }
+    }
+
+    /* cards */
+    main {
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 28px 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 34px
+    }
+
+    .card {
+      position: relative;
+      background: var(--paper);
+      padding: 46px 34px;
+      text-align: center;
+      filter: drop-shadow(0 8px 14px rgba(60, 30, 30, .14))
+    }
+
+    .card>svg.frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none
+    }
+
+    .card>*:not(.frame) {
+      position: relative
+    }
+
+    .card.in {
+      opacity: 0;
+      transform: translateY(24px) rotate(var(--r, 0deg));
+      transition: all .8s ease
+    }
+
+    .card.in.show {
+      opacity: 1;
+      transform: rotate(var(--r, 0deg))
+    }
+
+    /* invitation */
+    .bunting {
+      display: block;
+      width: 104%;
+      margin: -22px -2% 8px
+    }
+
+    .dear {
+      font-family: 'Nanum Pen Script';
+      font-size: 54px;
+      line-height: 1
+    }
+
+    .sub {
+      font-size: 22px;
+      letter-spacing: 1.5px;
+      margin: 14px 0 4px;
+      transform: rotate(-2deg)
+    }
+
+    .big {
+      font-family: 'Nanum Pen Script';
+      font-size: 78px;
+      line-height: .85;
+      margin-top: 6px
+    }
+
+    .big sup {
+      font-size: 36px
+    }
+
+    .cake {
+      width: 230px;
+      margin: 10px auto 0;
+      display: block
+    }
+
+    .flame {
+      transform-origin: 50% 100%;
+      animation: fl .9s ease-in-out infinite alternate
+    }
+
+    .flame:nth-child(2n) {
+      animation-delay: .3s
+    }
+
+    .flame:nth-child(3n) {
+      animation-delay: .55s
+    }
+
+    @keyframes fl {
+      to {
+        transform: scale(1.25, .85) rotate(4deg);
+        opacity: .75
+      }
+    }
+
+    .date {
+      font-size: 27px;
+      letter-spacing: 2px;
+      margin-top: 6px
+    }
+
+    .place {
+      font-size: 36px;
+      letter-spacing: 3px;
+      line-height: 1.05;
+      margin-top: 12px
+    }
+
+    .place small {
+      display: block;
+      font-size: 20px;
+      letter-spacing: 4px
+    }
+
+    .spark {
+      position: absolute !important;
+      width: 34px;
+      animation: tw 2.4s ease-in-out infinite
+    }
+
+    @keyframes tw {
+      50% {
+        transform: scale(.6) rotate(25deg);
+        opacity: .6
+      }
+    }
+
+    .count {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px
+    }
+
+    .count div {
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 14px 18px 12px 16px;
+      padding: 6px 10px;
+      min-width: 62px;
+      font-size: 13px
+    }
+
+    .count b {
+      display: block;
+      font-family: 'Fredoka';
+      font-size: 28px;
+      line-height: 1.1
+    }
+
+    .rsvp {
+      margin-top: 22px;
+      font: 700 24px 'Gaegu';
+      background: var(--pink);
+      border: 3px solid var(--ink);
+      border-radius: 30px 24px 32px 22px;
+      padding: 8px 26px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ink);
+      transition: .15s
+    }
+
+    .rsvp:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--ink)
+    }
+
+    .yes {
+      font-size: 24px;
+      margin-top: 14px;
+      min-height: 30px
+    }
+
+    /* mission */
+    .mission h2 {
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 1px
+    }
+
+    .mission p {
+      font-size: 24px;
+      letter-spacing: 1px;
+      line-height: 1.25;
+      margin: 14px 0
+    }
+
+    .place-surprise {
+      margin: 12px auto 0
+    }
+
+    .place-peek {
+      font: 700 22px 'Gaegu', cursive;
+      color: var(--ink);
+      background: #f8dce3;
+      border: 2px dashed var(--rose);
+      border-radius: 22px 28px 20px 26px;
+      padding: 8px 16px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 rgba(20, 20, 20, .8);
+      transition: transform .2s, box-shadow .2s
+    }
+
+    .place-peek:hover {
+      transform: translateY(-2px) rotate(-1deg);
+      box-shadow: 4px 5px 0 rgba(20, 20, 20, .8)
+    }
+
+    .place-peek:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px
+    }
+
+    .place-message {
+      min-height: 28px;
+      margin-top: 10px;
+      font-size: 20px;
+      color: var(--rose)
+    }
+
+    .place-name {
+      font-size: 36px;
+      letter-spacing: 3px;
+      line-height: 1.05;
+      margin-top: 12px;
+      animation: place-reveal .45s ease-out both
+    }
+
+    .place-name small {
+      display: block;
+      font-size: 20px;
+      letter-spacing: 4px
+    }
+
+    .video-card h2 {
+      font-size: 30px;
+      margin-bottom: 16px
+    }
+
+    .video-card {
+      padding: 36px 20px
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      max-height: 520px;
+      margin: 0 auto;
+      border: 0;
+      border-radius: 12px;
+      background: var(--paper);
+      object-fit: contain
+    }
+
+    .love-note {
+      margin: 20px auto 4px;
+      padding: 18px 16px;
+      background: #f8dce3;
+      border: 2px dashed var(--rose);
+      border-radius: 22px 28px 20px 26px;
+      font-size: 26px;
+      line-height: 1.2
+    }
+
+    .love-note span {
+      display: block;
+      margin-top: 10px;
+      color: var(--rose);
+      letter-spacing: 8px
+    }
+
+    @keyframes place-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(.92)
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+      }
+    }
+
+    .float {
+      position: absolute !important;
+      animation: fy 3.5s ease-in-out infinite
+    }
+
+    @keyframes fy {
+      50% {
+        transform: translateY(-10px) rotate(8deg)
+      }
+    }
+
+    /* plan */
+    .plan h2 {
+      font-size: 34px;
+      letter-spacing: 1px;
+      margin-bottom: 22px
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 54px 1fr 54px;
+      align-items: center;
+      gap: 8px;
+      margin: 14px 0;
+      text-align: center
+    }
+
+    .num {
+      font-family: 'Fredoka';
+      font-size: 58px;
+      line-height: 1;
+      -webkit-text-stroke: 3px #fff;
+      paint-order: stroke fill;
+      filter: drop-shadow(2px 3px 0 rgba(0, 0, 0, .18))
+    }
+
+    .step p {
+      font-size: 23px;
+      letter-spacing: 1.2px;
+      line-height: 1.15
+    }
+
+    .step i {
+      font-style: normal;
+      font-size: 38px
+    }
+
+    /* notes */
+    .notes {
+      display: flex;
+      flex-direction: column;
+      gap: 22px
+    }
+
+    .note {
+      padding: 36px 28px
+    }
+
+    .note h3 {
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 1px;
+      margin-bottom: 12px
+    }
+
+    .note p {
+      font-size: 24px;
+      letter-spacing: 1px;
+      line-height: 1.25
+    }
+
+    .hearts {
+      color: #c8102e;
+      letter-spacing: 8px;
+      margin-top: 12px;
+      font-size: 22px
+    }
+
+    .foot {
+      text-align: center;
+      font-family: 'Nanum Pen Script';
+      font-size: 34px;
+      margin-top: 6px
+    }
+
+    #fx {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        animation: none !important;
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body class="locked">
+
+  <div id="cover" role="button" tabindex="0" aria-label="Open invitation">
+    <div><span class="env">💌</span>
+      <h1>You have an invitation</h1>
+      <p>tap to open</p>
+    </div>
+  </div>
+  <canvas id="fx"></canvas>
+
+  <main>
+
+    <!-- 1 · INVITATION -->
+    <section class="card in" id="c1" style="--r:-.6deg">
+      <svg class="frame"></svg>
+      <svg class="bunting" viewBox="0 0 420 110" aria-hidden="true">
+        <defs>
+          <pattern id="p1" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(60)">
+            <rect width="12" height="12" fill="#d8344a" />
+            <rect width="4" height="12" fill="#b9a0e8" />
+          </pattern>
+          <pattern id="p2" width="22" height="22" patternUnits="userSpaceOnUse">
+            <rect width="22" height="22" fill="#f6c6b0" />
+            <circle cx="11" cy="11" r="6" fill="#d8344a" />
+          </pattern>
+          <pattern id="p3" width="16" height="16" patternUnits="userSpaceOnUse">
+            <rect width="16" height="16" fill="#d9a066" />
+            <path d="M0 4H16M0 12H16M4 0V16M12 0V16" stroke="#f1c9a4" stroke-width="3" />
+          </pattern>
+          <pattern id="p4" width="18" height="18" patternUnits="userSpaceOnUse">
+            <rect width="18" height="18" fill="#f06c9b" />
+            <circle cx="6" cy="6" r="4" fill="#d9a066" />
+            <circle cx="14" cy="14" r="3" fill="#d9a066" />
+          </pattern>
+          <pattern id="p5" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+            <rect width="12" height="12" fill="#b9a0e8" />
+            <rect y="3" width="12" height="4" fill="#f27ea0" />
+          </pattern>
+        </defs>
+        <path d="M10 12 Q210 44 410 8" fill="none" stroke="#141414" stroke-width="2.5" />
+        <path d="M18 18 L72 22 L50 86Z" fill="url(#p1)" />
+        <path d="M86 26 L146 32 L116 90Z" fill="url(#p2)" />
+        <path d="M158 33 L222 36 L190 102Z" fill="url(#p3)" />
+        <path d="M236 36 L296 32 L268 94Z" fill="url(#p4)" />
+        <path d="M310 30 L372 20 L346 84Z" fill="url(#p5)" />
+      </svg>
+
+      <img class="spark" style="right:14px;top:300px" alt=""
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M16 2c1 10 4 13 14 14-10 1-13 4-14 14-1-10-4-13-14-14 10-1 13-4 14-14z' fill='%23f2c14e'/%3E%3C/svg%3E">
+      <img class="spark" style="left:12px;top:470px;animation-delay:.8s" alt=""
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M16 2c1 10 4 13 14 14-10 1-13 4-14 14-1-10-4-13-14-14 10-1 13-4 14-14z' fill='%23f2c14e'/%3E%3C/svg%3E">
+
+      <div class="dear">Dear my fiancée</div>
+      <div class="sub">You are invited to celebrate</div>
+      <div class="big">Your 28<sup>th</sup><br>Birthday</div>
+
+      <svg class="cake" viewBox="0 0 240 190" aria-hidden="true">
+        <g stroke="#141414" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="120" cy="164" rx="108" ry="20" fill="#f6f1ee" />
+          <path d="M52 70v76c0 12 30 20 68 20s68-8 68-20V70" fill="#f6f1ee" />
+          <ellipse cx="120" cy="70" rx="68" ry="14" fill="#f6f1ee" />
+          <path d="M54 94q16 14 32 0t32 0 32 0 32 0M54 124q16 16 32 0t32 0 32 0 32 0" stroke-width="2.6" />
+        </g>
+        <g fill="#9fc6ee" stroke="#6a9ccf" stroke-width="1.5">
+          <rect x="66" y="34" width="5" height="30" rx="2" />
+          <rect x="82" y="30" width="5" height="34" rx="2" />
+          <rect x="98" y="28" width="5" height="36" rx="2" />
+          <rect x="113" y="24" width="5" height="40" rx="2" />
+          <rect x="128" y="28" width="5" height="36" rx="2" />
+          <rect x="143" y="30" width="5" height="34" rx="2" />
+          <rect x="158" y="33" width="5" height="31" rx="2" />
+          <rect x="172" y="36" width="5" height="28" rx="2" />
+        </g>
+        <g fill="#f8b64c">
+          <path class="flame" d="M68.5 24c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M84.5 20c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M100.5 18c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M115.5 14c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M130.5 18c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M145.5 20c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M160.5 23c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+          <path class="flame" d="M174.5 26c-4 5-4 8 0 9 4-1 4-4 0-9z" />
+        </g>
+      </svg>
+
+      <div class="date">Saturday, October 24th · 7:30 PM</div>
+      <div class="place-surprise">
+        <button class="place-peek" id="place-peek" type="button" aria-controls="place-name" aria-expanded="false">A little surprise is waiting — tap to peek ✨</button>
+        <div class="place-message" id="place-message" aria-live="polite"></div>
+        <div class="place-name" id="place-name" hidden>Palma<small>restaurant</small></div>
+      </div>
+
+      <div class="count" id="count" aria-label="Countdown"></div>
+      <button class="rsvp" id="rsvp">I'll be there 💖</button>
+      <div class="yes hand" id="yes"></div>
+    </section>
+
+    <!-- VIDEO · 2 -->
+    <section class="card in video-card" id="video-card" style="--r:.4deg">
+      <svg class="frame"></svg>
+      <h2>A little video for you 💖</h2>
+      <video controls playsinline preload="metadata">
+        <source src="video.mov">
+        Your browser does not support video playback.
+      </video>
+    </section>
+
+    <!-- 3 · MISSION -->
+    <section class="card in mission" id="c2" style="--r:.8deg">
+      <svg class="frame"></svg>
+      <span class="float" style="right:22px;top:34px;font-size:54px">💗</span>
+      <span class="float" style="left:22px;top:150px;font-size:42px;animation-delay:.6s">🥳</span>
+      <h2>🎯 Mission of the day</h2>
+      <p>your mission<br>for today is simple!</p>
+      <div style="color:var(--gold);font-size:22px;letter-spacing:10px">★ ★ ★ ★ ★</div>
+      <p>Just enjoy every moment of<br>the day with me 💗</p>
+      <div class="love-note hand">
+        My favorite place is wherever I am with you. Every moment we share becomes a memory I want to keep forever.
+        Thank you for being my best friend, my happiness, and the love of my life. 💗
+        <span>♥ ♥ ♥</span>
+      </div>
+    </section>
+
+    <!-- 4 · PLAN -->
+    <section class="card in plan" id="c3" style="--r:-.5deg">
+      <svg class="frame"></svg>
+      <h2>what we gonna do? 🧠</h2>
+      <div class="step"><span class="num" style="color:#ff6b35">1</span>
+        <p>Get ready and look handsome at 7:30 PM</p><i>✨</i>
+      </div>
+      <div class="step"><span class="num" style="color:#f6c343">2</span>
+        <p>Let's head to our special spot</p><i>🛵</i>
+      </div>
+      <div class="step"><span class="num" style="color:#3f6d9a">3</span>
+        <p>Enjoy the view together</p><i>🌅</i>
+      </div>
+      <div class="step"><span class="num" style="color:#a45bd6">4</span>
+        <p>Delicious food &amp; good vibes</p><i>🍷</i>
+      </div>
+      <div class="step"><span class="num" style="color:#e0607e">5</span>
+        <p>Celebration &amp; Gift Reveal</p><i>🎁</i>
+      </div>
+      <div class="step"><span class="num" style="color:#f7b6c8">6</span>
+        <p>PHOTOSSS!!</p><i>📸</i>
+      </div>
+    </section>
+
+    <!-- 5 · NOTES -->
+    <div class="notes">
+      <section class="card in note" id="c4" style="--r:.5deg">
+        <svg class="frame"></svg>
+        <h3>Happy Birthday Habibi 🕯️</h3>
+        <p>I hope today is beautiful, that we make sweet memories together and that you stay happy.</p>
+        <div class="hearts">♥♥♥♥♥</div>
+        <div style="font-size:46px;margin-top:6px">🍰</div>
+      </section>
+      <section class="card in note" id="c5" style="--r:-.7deg">
+        <svg class="frame"></svg>
+        <p>I hope this year is a happy one and that all your wishes come true, for sure, and I'll be with you every step
+          of the way.</p>
+        <div style="font-size:34px;margin-top:10px">😅❤️</div>
+      </section>
+      <section class="card in note" id="c6" style="--r:.4deg">
+        <svg class="frame"></svg>
+        <p>I am always proud of you, and I see you as the best person in the world. I hope this year is full of success
+          for you.</p>
+        <div class="hearts">♥♥♥♥♥</div>
+      </section>
+    </div>
+    <div class="foot">see you on the 24th 🤍</div>
+  </main>
+
+  <script>
+    /* hand-drawn scalloped frame */
+    function frame(card) {
+      const s = card.querySelector('svg.frame'), w = card.offsetWidth, h = card.offsetHeight, m = 10, r = 13;
+      const nx = Math.round((w - 2 * m) / (2 * r)), ny = Math.round((h - 2 * m) / (2 * r));
+      const dx = (w - 2 * m) / nx, dy = (h - 2 * m) / ny; let d = `M${m} ${m}`, dots = '';
+      const bump = (x, y, ex, ey, sw) => {d += ` A${Math.abs(ex - x) / 2 + 0.1} ${r} 0 0 ${sw} ${ex} ${ey}`};
+      let x = m, y = m;
+      for (let i = 0; i < nx; i++) {d += ` q${dx / 2} ${-r * 1.9} ${dx} 0`; x += dx; dots += `<circle cx="${x}" cy="${y}" r="4.5"/>`}
+      for (let i = 0; i < ny; i++) {d += ` q${r * 1.9} ${dy / 2} 0 ${dy}`; y += dy; dots += `<circle cx="${x}" cy="${y}" r="4.5"/>`}
+      for (let i = 0; i < nx; i++) {d += ` q${-dx / 2} ${r * 1.9} ${-dx} 0`; x -= dx; dots += `<circle cx="${x}" cy="${y}" r="4.5"/>`}
+      for (let i = 0; i < ny; i++) {d += ` q${-r * 1.9} ${-dy / 2} 0 ${-dy}`; y -= dy; dots += `<circle cx="${x}" cy="${y}" r="4.5"/>`}
+      s.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      s.innerHTML = `<path d="${d}Z" fill="none" stroke="#141414" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><g fill="#141414">${dots}</g>`;
+    }
+    const cards = [...document.querySelectorAll('.card')];
+    const draw = () => cards.forEach(frame);
+    addEventListener('load', draw); addEventListener('resize', draw);
+    document.fonts && document.fonts.ready.then(draw);
+    new ResizeObserver(draw).observe(document.querySelector('main'));
+
+    /* reveal */
+    const io = new IntersectionObserver(es => es.forEach(e => {if (e.isIntersecting) {e.target.classList.add('show'); io.unobserve(e.target)} }), {threshold: .12});
+    cards.forEach(c => io.observe(c));
+
+    /* Countdown to October 24, 2026 at 7:30 PM local time */
+    const target = new Date(2026, 9, 24, 19, 30, 0);
+    const placeUnlock = new Date(2026, 9, 24, 19, 30, 0);
+    function tick() {
+      const t = target - new Date(), box = document.getElementById('count');
+      if (t <= 0) {box.innerHTML = '<div style="border:0;background:none;font-size:26px">It\'s today!! 🎉</div>'; return }
+      const v = [['days', Math.floor(t / 864e5)], ['hours', Math.floor(t / 36e5) % 24], ['min', Math.floor(t / 6e4) % 60], ['sec', Math.floor(t / 1e3) % 60]];
+      box.innerHTML = v.map(([l, n]) => `<div><b>${String(n).padStart(2, '0')}</b>${l}</div>`).join('');
+    }
+    tick(); setInterval(tick, 1000);
+
+    /* confetti */
+    const cv = document.getElementById('fx'), cx = cv.getContext('2d'); let P = [];
+    function size() {cv.width = innerWidth; cv.height = innerHeight} size(); addEventListener('resize', size);
+    function boom(x, y, n = 90) {
+      const col = ['#f4a6b8', '#e0607e', '#f2c14e', '#9fc6ee', '#b9a0e8', '#ff6b35'];
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2, v = 4 + Math.random() * 9;
+        P.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5, r: 4 + Math.random() * 5, c: col[i % 6], rot: Math.random() * 6, life: 110 + Math.random() * 50})
+      }
+      if (P.length === n) loop();
+    }
+    function loop() {
+      cx.clearRect(0, 0, cv.width, cv.height);
+      P = P.filter(p => p.life-- > 0);
+      P.forEach(p => {
+        p.vy += .28; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += .15;
+        cx.save(); cx.translate(p.x, p.y); cx.rotate(p.rot); cx.fillStyle = p.c; cx.globalAlpha = Math.min(1, p.life / 40); cx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r); cx.restore()
+      });
+      if (P.length) requestAnimationFrame(loop); else cx.clearRect(0, 0, cv.width, cv.height);
+    }
+
+    /* open cover */
+    const cover = document.getElementById('cover');
+    function open() {
+      cover.classList.add('gone'); document.body.classList.remove('locked');
+      setTimeout(() => {boom(innerWidth / 2, innerHeight / 3, 140); draw()}, 500); setTimeout(() => cover.remove(), 1000)
+    }
+    cover.addEventListener('click', open);
+    cover.addEventListener('keydown', e => {if (e.key === 'Enter' || e.key === ' ') open()});
+
+    document.getElementById('rsvp').addEventListener('click', e => {
+      const r = e.target.getBoundingClientRect(); boom(r.left + r.width / 2, r.top, 110);
+      document.getElementById('yes').textContent = 'Yaaay!! Can\'t wait to celebrate you 🥹💖';
+    });
+
+    const placePeek = document.getElementById('place-peek');
+    placePeek.addEventListener('click', () => {
+      const remaining = placeUnlock - new Date();
+      if (remaining > 0) {
+        const hours = Math.floor(remaining / 36e5);
+        const minutes = Math.ceil(remaining / 6e4) % 60;
+        const timeLeft = hours > 0
+          ? `${hours} hour${hours === 1 ? '' : 's'}${minutes ? ` and ${minutes} min` : ''}`
+          : `${Math.ceil(remaining / 6e4)} min`;
+        document.getElementById('place-message').textContent =
+          `Not yet! Your surprise will be ready in ${timeLeft} 💌`;
+        return;
+      }
+      document.getElementById('place-name').hidden = false;
+      document.getElementById('place-message').textContent = '';
+      placePeek.setAttribute('aria-expanded', 'true');
+      placePeek.hidden = true;
+    });
+  </script>
+</body>
+
+</html>
